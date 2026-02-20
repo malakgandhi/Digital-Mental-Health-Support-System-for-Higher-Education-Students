@@ -5,4 +5,9 @@ from sklearn.metrics import roc_auc_score, auc, roc_curve
 
 df = read_csv("Depression Student Dataset.csv")
 
-print(df.isnull().sum())
+cat_cols = df.select_dtypes(include = ['category'])
+categories = {}
+
+categories = {cat_col : df[cat_col].unique().tolist() for cat_col in df.select_dtypes(include = ['object', 'category'])}
+
+print(categories)
