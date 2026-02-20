@@ -1,4 +1,4 @@
-Gender,Age,Academic Pressure,Study Satisfaction,Sleep Duration,Dietary Habits,Have you ever had suicidal thoughts ?,Study Hours,Financial Stress,Family History of Mental Illness,Depression
+Gender,Age,Academic Pressure,Study Satisfaction,Sleep Duration,Dietary Habits,Suicidal Thoughts Recieved,Study Hours,Financial Stress,Family History of Mental Illness,Depression
 Male,28,2.0,4.0,7-8 hours,Moderate,Yes,9,2,Yes,No
 Male,28,4.0,5.0,5-6 hours,Healthy,Yes,7,1,Yes,No
 Male,25,1.0,3.0,5-6 hours,Unhealthy,Yes,10,4,No,Yes
