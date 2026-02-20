@@ -11,3 +11,5 @@ categories = {}
 categories = {cat_col : df[cat_col].unique().tolist() for cat_col in df.select_dtypes(include = ['object', 'category'])}
 
 print(categories)
+
+oe = OrdinalEncoder()
