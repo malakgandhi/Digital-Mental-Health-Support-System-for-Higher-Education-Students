@@ -1,6 +1,6 @@
 from pandas import read_csv
 from sklearn.model_selection import train_test_split, cross_validate
-from sklearn.preprocessing import OrdinalEncoder
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.metrics import roc_auc_score, auc, roc_curve
 
 df = read_csv("Depression Student Dataset.csv")
@@ -12,4 +12,8 @@ categories = {cat_col : df[cat_col].unique().tolist() for cat_col in df.select_d
 
 print(categories)
 
-oe = OrdinalEncoder()
+sleep_dur_order = ['Less than 5 hours', '5-6 hours', '7-8 hours', 'More than 8 hours']
+diet_habit_order = ['Unhealthy', 'Moderate', 'Healthy']
+
+oe = OrdinalEncoder(categories = [sleep_dur_order, diet_habit_order])
+df[['Sleep Duration', 'Dietary Habits']] = oe.fit_transform(df[['Sleep Duration', 'Dietary Habits']])
