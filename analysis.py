@@ -22,6 +22,13 @@ le = LabelEncoder()
 cat_cols = df.select_dtypes(include = ['object']).columns
 
 for cat_col in cat_cols:
-    le.fit_transform(df[[cat_col]])
+    df[cat_col] = le.fit_transform(df[cat_col])
+    le
 
 print(df)
+print(df[['Sleep Duration', 'Dietary Habits']])
+
+for col in df[['Sleep Duration', 'Dietary Habits']]:
+    df[col] = df[col].astype(int)
+
+print(df[['Sleep Duration', 'Dietary Habits']])
