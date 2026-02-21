@@ -17,3 +17,11 @@ diet_habit_order = ['Unhealthy', 'Moderate', 'Healthy']
 
 oe = OrdinalEncoder(categories = [sleep_dur_order, diet_habit_order])
 df[['Sleep Duration', 'Dietary Habits']] = oe.fit_transform(df[['Sleep Duration', 'Dietary Habits']])
+
+le = LabelEncoder()
+cat_cols = df.select_dtypes(include = ['object']).columns
+
+for cat_col in cat_cols:
+    le.fit_transform(df[[cat_col]])
+
+print(df)
