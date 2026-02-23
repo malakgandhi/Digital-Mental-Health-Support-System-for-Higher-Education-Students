@@ -5,6 +5,7 @@ from sklearn.metrics import roc_auc_score, auc, roc_curve
 
 df = read_csv("Depression Student Dataset.csv")
 
+
 cat_cols = df.select_dtypes(include = ['category'])
 categories = {}
 
@@ -32,3 +33,6 @@ for col in df[['Sleep Duration', 'Dietary Habits']]:
     df[col] = df[col].astype(int)
 
 print(df[['Sleep Duration', 'Dietary Habits']])
+
+df.target = df[['Depression']]
+print(df.target)
