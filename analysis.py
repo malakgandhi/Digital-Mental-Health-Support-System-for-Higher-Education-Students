@@ -1,12 +1,27 @@
 from pandas import read_csv
+from numpy import number
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn.metrics import roc_auc_score, auc, roc_curve
 
 df = read_csv("Depression Student Dataset.csv")
 
+num_cols = df.select_dtypes(include = [number])
+for num_col in num_cols:
+    skewness = df[num_col].skew()
+    if skewness >= -0.5 and skewness <= 0.5:
+        df[num_col].fillna(df[num_col].mean(), include = True)
+    else:
+        df[num_col].fillna(df[num_col].median(), include = True)
 
 cat_cols = df.select_dtypes(include = ['category'])
+
+for cat_col in cat_cols:
+    if df[cat_col].is_unique:
+        df[cat_col].dropna(inplace = True)
+    else:
+        df[cat_col].fillna(df[cat_col].mode()[0], inplace = True)
+
 categories = {}
 
 categories = {cat_col : df[cat_col].unique().tolist() for cat_col in df.select_dtypes(include = ['object', 'category'])}
