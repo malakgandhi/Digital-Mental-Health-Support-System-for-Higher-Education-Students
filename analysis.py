@@ -2,9 +2,8 @@ from pandas import read_csv
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score, auc, roc_curve
-from sklearn.model_selection import train_test_split, cross_validate
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, StandardScaler
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 
 df = read_csv("Depression Student Dataset.csv")
 df.drop_duplicates(inplace = True)
@@ -46,6 +45,7 @@ cat_cols = df.select_dtypes(include = ['object']).columns
 for cat_col in cat_cols:
     if cat_col != "Sleep Duration" and cat_col != "Dietary Habits":
         df[cat_col] = le.fit_transform(df[cat_col])
+        print(df[cat_col])
         le
 
 print(df)
@@ -56,8 +56,15 @@ for col in df[['Sleep Duration', 'Dietary Habits']]:
 
 print(df[['Sleep Duration', 'Dietary Habits']])
 
-pipeline = Pipeline(
-    ('scaler', StandardScaler()),
-    ('log_reg', LogisticRegression())
-)
+X = df.drop(columns = ['Depression'])
+y = df['Depression']
 
+model = RandomForestClassifier()
+
+params = {
+    'C':[0.01, 0.1, 1, 10, 100],
+    'l1_ratio':[0, 0.25, 0.5, 0.75, 1],
+    'max_iter':[500, 600, 700, 800, 900, 1000]
+}
+
+grid_search = GridSearchCV(model, params_grid = params, scoring = 'precision')
