@@ -1,9 +1,10 @@
-from pandas import read_csv
-from sklearn.ensemble import RandomForestClassifier
+from pandas import read_csv, DataFrame
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_auc_score, auc, roc_curve
-from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import precision_score
+from sklearn.model_selection import train_test_split, GridSearchCV, KFold
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
+from sklearn.svm import SVC
 
 df = read_csv("Depression Student Dataset.csv")
 df.drop_duplicates(inplace = True)
@@ -59,12 +60,43 @@ print(df[['Sleep Duration', 'Dietary Habits']])
 X = df.drop(columns = ['Depression'])
 y = df['Depression']
 
-model = RandomForestClassifier()
+X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.7, random_state = 42)
 
-params = {
-    'C':[0.01, 0.1, 1, 10, 100],
-    'l1_ratio':[0, 0.25, 0.5, 0.75, 1],
-    'max_iter':[500, 600, 700, 800, 900, 1000]
+kf = KFold(n_splits = 5, shuffle = True, random_state = 42)
+
+models = {
+    'rf':{
+        'model': RandomForestClassifier(), 
+        'params':{
+            'n_estimators':[100, 150, 200], 
+            'max_depth':[None, 10, 50, 100]
+            }
+        },
+    'svm':{
+        'model':SVC(), 
+        'params':{
+            'C':[0.1, 1, 10],
+            'kernel':['linear', 'rbf', 'poly', 'sigmoid']
+            }
+        }
 }
 
-grid_search = GridSearchCV(model, params_grid = params, scoring = 'precision')
+best_score = 0.0
+best_model = None
+
+for model, tuners in models.items():
+    grid_search = GridSearchCV(tuners['model'], tuners['params'], cv = kf)
+    grid_search.fit(X_train, y_train)
+
+    if best_score < grid_search.best_score_:
+        best_score = grid_search.best_score_
+        best_model = grid_search.best_estimator_
+
+print(f"Best Model : {best_model}")
+print(f"Best Scores = {best_score:.2f}")
+
+best_model.fit(X_train, y_train)
+
+y_pred = best_model.predict(X_test)
+
+print("Precision score", precision_score(y_test, y_pred))
