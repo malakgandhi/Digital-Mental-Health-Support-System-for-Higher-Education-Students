@@ -1,3 +1,4 @@
 # Digital-Mental-Health-Support-System-for-Higher-Education-Students
 Hello, my name is Malak Gandhi, I am a student learning in ATLAS Skilltech University. I am making a project can help students from mental issues such as academic stress, anxiety, depression, sleep disorders and many other issues for colleges in rural or suburban areas.
 I am also helping depression and anxiety in adults as well.
+My main aim is trying to detect depression and ensure the people stay safe.
