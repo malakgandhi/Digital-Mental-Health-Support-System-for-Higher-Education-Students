@@ -54,8 +54,16 @@ def home():
         pred = model.predict(inp_df)
 
         save_in_file(data, pred)
+        print(pred)
 
         return redirect(url_for("result", prediction = pred))
     
     return render_template("index.html")
 
+@app.route("/result")
+def result():
+    prediction = request.args.get("prediction")
+    return render_template("result.html", prediction = prediction)
+
+if __name__ == "__main__":
+    app.run(host = "0.0.0.0", port = 5000, debug = False)
