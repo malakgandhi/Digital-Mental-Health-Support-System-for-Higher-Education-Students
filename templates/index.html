@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Analyzer</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Gender:</label>
+        <select name="Gender" required>
+            <option value=" ">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+
+        <label>Age:</label>
+        <input type="number", name="Age", min="18", max="34" required>
+
+        <label>Academic Pressure:</label>
+        <input type="number", name="Academic Pressure", min="1.0", max="5.0" required>
+
+        <label>Study Satisfaction:</label>
+        <input type="number", name="Study Satisfaction", min="1.0", max="5.0" required>
+
+        <label>Sleep Duration:</label>
+        <select name="Sleep Duration" required>
+            <option value=" ">Select</option>
+            <option>Less than 5 hours</option>
+            <option>5-6 hours</option>
+            <option>7-8 hours</option>
+            <option>More than 8 hours</option>
+        </select>
+
+        <label>Dietary Habits:</label>
+        <select name="Dietary Habits" required>
+            <option value=" ">Select</option>
+            <option>Unhealthy</option>
+            <option>Moderate</option>
+            <option>Healthy</option>
+        </select>
+        
+
+        <label>Have you recieved any suicidal thoughts?</label>
+        <select name="Suicidal Thoughts Recieved">
+            <option value=" ">Select</option>
+            <option>No</option>
+            <option>Yes</option>
+        </select>
+
+        <label>Study Hours:</label>
+        <input type="number", name="Study Hours", min="0", max="12" required>
+
+        <label>Financial Stress:</label>
+        <input type="number", name="Financial Stress", min="1", max="5" required>
+
+        <label>Do you have a family history of mental illness?</label>
+        <select name="Family History of Mental Illness">
+            <option value=" ">Select</option>
+            <option>No</option>
+            <option>Yes</option>
+        </select>
+    </form>
+</body>
+</html>

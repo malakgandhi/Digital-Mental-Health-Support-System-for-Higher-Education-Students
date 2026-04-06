@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Results</title>
+</head>
+<body>
+    {% if prediction == 'Yes' %}
+        <h2>Sorry, we have detected that you may have have depression. Please consult a psychologist for this.</h2>
+    {% else %}
+        <h2>We found out that you do not have depression.</h2>
+    {% endif %}
+</body>
+</html>
