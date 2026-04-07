@@ -1,4 +1,5 @@
 import pandas as pd
+import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegression
@@ -134,3 +135,5 @@ pi = permutation_importance(best_model, X_test, y_test, scoring = 'recall', n_re
 
 imp_df = pd.DataFrame({'Feature': X.columns, 'Importance': pi.importances_mean}).sort_values(by = 'Importance', ascending = False)
 print(imp_df)
+
+joblib.dump(best_model, "best_model.joblib")
