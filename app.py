@@ -51,7 +51,7 @@ def home():
         }
 
         inp_df = pd.DataFrame(data)
-        pred = model.predict(inp_df)
+        pred = model.predict(inp_df)[0]
 
         save_in_file(data, pred)
         print(pred)
