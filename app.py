@@ -34,7 +34,22 @@ def save_in_file(data, prediction):
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-    pred = None
+    required_fields = [
+        "Gender",
+        "Age",
+        "Academic Pressure",
+        "Study Satisfaction",
+        "Sleep Duration",
+        "Dietary Habits",
+        "Suicidal Thoughts Recieved",
+        "Study Hours",
+        "Financial Stress",
+        "Family History of Mental Illness",
+        ]
+    
+    for field in required_fields:
+        if field not in request.form or request.form[field].strip() == "":
+            return(render_template("index.html", error = f"{field} is required to be filled."))
 
     if request.method == "PUSH":
         data = {

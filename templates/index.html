@@ -6,6 +6,11 @@
     <title><h1>Depression Analyzer</h1></title>
 </head>
 <body>
+
+    {% if error %}
+        <p>error</p>
+    {% endif %}
+
     <form method="POST">
         <label>Gender:</label>
         <select name="Gender" required>
@@ -77,6 +82,8 @@
             <option>No</option>
             <option>Yes</option>
         </select>
+        
+        <button type="submit">Check Result</button>
     </form>
 </body>
 </html>
