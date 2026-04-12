@@ -8,9 +8,22 @@
 </head>
 <body>
     {% if prediction == 'Yes' %}
-        <h2>Sorry, we have detected that you may have have depression. Please consult a psychologist for this.</h2>
+        <h2>Risk: High</h2>
+        <h2>Dectected Positive for Depression</h2>
+        <p>
+            Sorry to say this, but based on the the analysis from the model, you may be 
+            suffering from depression. However, the result is not a diagnosis, but it may
+            suggest that you are experiencing sympton associated with depression. It is recommended
+            to consult your local psychologist or psychiatrist for guidance, evaluation and support.
+        </p>
     {% else %}
-        <h2>We found out that you do not have depression.</h2>
+        <h2>Risk: Low</h2>
+        <h2>Dectected Negative for Depression</h2>
+        <p>
+        Based on the analysis of the inputs, the model has detected no signs of depression in 
+        you. However, it does not rule out the possibilities of other mental health issues. 
+        If any symptoms arise, please visit your local psychologist.
+        </p>
     {% endif %}
 </body>
 </html>
