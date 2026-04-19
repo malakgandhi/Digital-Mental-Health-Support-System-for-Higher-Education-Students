@@ -1,2 +1,2 @@
-Front-End: HTML, CSS, JavaScript
+Front-End: HTML, CSS
 Back-End: Python
