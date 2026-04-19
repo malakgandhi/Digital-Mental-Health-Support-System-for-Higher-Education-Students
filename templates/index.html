@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><h1>Depression Analyzer</h1></title>
+    <title>Depression Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <h1>Depression Analyzer</h1>
 
     {% if error %}
-        <p>error</p>
+        <p>{{ error }}</p>
     {% endif %}
 
     <form method="POST">
@@ -22,17 +24,19 @@
         <br>
 
         <label>Age:</label>
-        <input type="number", name="Age", min="18", max="34" required>
+        <input type="number" name="Age" min="18" max="34" required>
         <br>
         <br>
 
         <label>Academic Pressure:</label>
-        <input type="number", name="Academic Pressure", min="1.0", max="5.0" required>
+        <label>(Please enter between 1 to 5)</label>
+        <input type="number" name="Academic Pressure" min="1.0" max="5.0" required>
         <br>
         <br>
 
         <label>Study Satisfaction:</label>
-        <input type="number", name="Study Satisfaction", min="1.0", max="5.0" required>
+        <label>(Please enter between 1 to 5)</label>
+        <input type="number" name="Study Satisfaction" min="1.0" max="5.0" required>
         <br>
         <br>
 
@@ -58,7 +62,7 @@
         <br>
 
         <label>Have you recieved any suicidal thoughts?</label>
-        <select name="Suicidal Thoughts Recieved">
+        <select name="Suicidal Thoughts Recieved" required>
             <option value=" ">Select</option>
             <option>No</option>
             <option>Yes</option>
@@ -67,17 +71,19 @@
         <br>
 
         <label>Study Hours:</label>
-        <input type="number", name="Study Hours", min="0", max="12" required>
+        <label>(Please enter between 0 to 12)</label>
+        <input type="number" name="Study Hours" min="0" max="12" required>
         <br>
         <br>
 
         <label>Financial Stress:</label>
-        <input type="number", name="Financial Stress", min="1", max="5" required>
+        <label>(Please enter between 1 to 5)</label>
+        <input type="number" name="Financial Stress" min="1" max="5" required>
         <br>
         <br>
 
         <label>Do you have a family history of mental illness?</label>
-        <select name="Family History of Mental Illness">
+        <select name="Family History of Mental Illness" required>
             <option value=" ">Select</option>
             <option>No</option>
             <option>Yes</option>
