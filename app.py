@@ -13,7 +13,7 @@ def save_in_file(data, prediction):
     row = {
             "Gender": data["Gender"][0],
             "Age":data["Age"][0],
-            "Academic Pressure": data["Aacademic Pressure"][0],
+            "Academic Pressure": data["Academic Pressure"][0],
             "Study Satisfaction": data["Study Satisfaction"][0],
             "Sleep Duration": data["Sleep Duration"][0],
             "Dietary Habits": data["Dietary Habits"][0],
@@ -27,9 +27,9 @@ def save_in_file(data, prediction):
     df = pd.DataFrame([row])
 
     if os.path.exists(csv_file):
-        df.to_csv(data, mode = 'a', header = False, index = True)
+        df.to_csv(csv_file, mode = 'a', header = False, index = True)
     else:
-        df.to_csv(data, mode = 'w', header = True, index = True)
+        df.to_csv(csv_file, mode = 'w', header = True, index = True)
         
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -47,22 +47,25 @@ def home():
         "Family History of Mental Illness",
         ]
     
-    for field in required_fields:
-        if field not in request.form or request.form[field].strip() == "":
-            return(render_template("index.html", error = f"{field} is required to be filled."))
+    if request.method == "POST":
+        for field in required_fields:
+            if field not in request.form or request.form[field].strip() == "":
+                return(render_template("index.html", error = f"{field} is required to be filled."))
 
-    if request.method == "PUSH":
         data = {
-            "Gender":[request.form("Gender")],
-            "Age":[int(request.form("Age"))],
-            "Academic Pressure": [float(request.form("Aacademic Pressure"))],
-            "Study Satisfaction": [float(request.form("Study Satisfaction"))],
-            "Sleep Duration": [request.form("Sleep Duration")],
-            "Dietary Habits": [request.form("Dietary Habits")],
-            "Suicidal Thoughts Recieved": [request.form("Suicidal Thoughts Recieved")],
-            "Study Hours": [float(request.form("Study Hours"))],
-            "Financial Stress": [request.form("Financial Stress")],
-            "Family History of Mental Illness":[request.form("Family History of Mental Illness")]
+            "Gender":[1 if request.form["Gender"]=="Female" else 0],
+            "Age":[int(request.form["Age"])],
+            "Academic Pressure": [float(request.form["Academic Pressure"])],
+            "Study Satisfaction": [float(request.form["Study Satisfaction"])],
+            "Sleep Duration": [0 if request.form["Sleep Duration"]=="Less than 5 hours" else
+                               1 if request.form["Sleep Duration"]=="5-6 hours" else
+                               2 if request.form["Sleep Duration"]=="7-8 hours" else 3],
+            "Dietary Habits": [0 if request.form["Dietary Habits"]=="Unhealthy" else
+                               1 if request.form["Dietary Habits"]=="Moderate" else 2],
+            "Suicidal Thoughts Recieved": [1 if request.form["Suicidal Thoughts Recieved"]=="Yes" else 0],
+            "Study Hours": [float(request.form["Study Hours"])],
+            "Financial Stress": [float(request.form["Financial Stress"])],
+            "Family History of Mental Illness":[1 if request.form["Family History of Mental Illness"]=="Yes" else 0]
         }
 
         inp_df = pd.DataFrame(data)
