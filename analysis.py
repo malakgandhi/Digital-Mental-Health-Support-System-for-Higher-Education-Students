@@ -3,7 +3,7 @@ import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import recall_score
+from sklearn.metrics import recall_score, confusion_matrix
 from sklearn.model_selection import train_test_split, GridSearchCV, KFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, LabelEncoder, StandardScaler
@@ -103,7 +103,7 @@ models = {
         }
     },
     'svm' : {
-        'pipeline' : Pipeline([('scaler', StandardScaler()), ('model', SVC(random_state = 42))]),
+        'pipeline' : Pipeline([('scaler', StandardScaler()), ('model', SVC(random_state = 42, probability = True))]),
         'param_grid' : {
             'model__kernel' : ['linear', 'poly', 'rbf', 'sigmoid'],
             'model__C' : [1, 2, 5, 10],
@@ -129,6 +129,7 @@ print(f"Best Model = {best_model_name}\nBest Estimators : {best_model}\nBest Sco
 y_pred = best_model.predict(X_test)
 
 print(f"Recall score: {recall_score(y_test, y_pred)}")
+print(f"Confusion matrix: {confusion_matrix(y_test, y_pred)}")
 print(f"Model steps: {list(best_model.named_steps.keys())}")
 
 pi = permutation_importance(best_model, X_test, y_test, scoring = 'recall', n_repeats = 1000, random_state = 42)

@@ -10,7 +10,8 @@
 <body>
     {% if prediction == '1' %}
         <h2>Risk: High</h2>
-        <h2>Dectected Positive for Depression</h2>
+        <h2>Dectected Positive for Depression</h2>\
+        <h2>Percentage: {{ percentage }}%</h2>
         <p>
             Sorry to say this, but based on the the analysis from the model, you may be 
             suffering from depression. However, the result is not a diagnosis, but it may
@@ -20,6 +21,7 @@
     {% else %}
         <h2>Risk: Low</h2>
         <h2>Dectected Negative for Depression</h2>
+        <h2>Percentage: {{ percentage }}%</h2>
         <p>
         Based on the analysis of the inputs, the model has detected no signs of depression in 
         you. However, it does not rule out the possibilities of other mental health issues. 

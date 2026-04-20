@@ -10,26 +10,51 @@ model = joblib.load("best_model.joblib")
 csv_file = "Depression Student Dataset.csv"
 
 def save_in_file(data, prediction):
+    csv_file = "Depression Student Dataset.csv"
+
+    gender_map = {
+        0:"Male",
+        1:"Female"
+    }
+
+    sleep_map = {
+        0:"Less than 5 hours",
+        1:"5-6 hours",
+        2:"7-8 hours",
+        3:"More than 8 hours"
+    }
+
+    diet_map = {
+        0:"Unhealthy",
+        1:"Moderate",
+        2:"Unhealthy"
+    }
+
+    yes_no_map = {
+        0:"No",
+        1:"Yes"
+    }
+
     row = {
-            "Gender": data["Gender"][0],
+            "Gender": gender_map[data["Gender"][0]],
             "Age":data["Age"][0],
             "Academic Pressure": data["Academic Pressure"][0],
             "Study Satisfaction": data["Study Satisfaction"][0],
-            "Sleep Duration": data["Sleep Duration"][0],
-            "Dietary Habits": data["Dietary Habits"][0],
-            "Suicidal Thoughts Recieved": data["Suicidal Thoughts Recieved"][0],
+            "Sleep Duration": sleep_map[data["Sleep Duration"][0]],
+            "Dietary Habits": diet_map[data["Dietary Habits"][0]],
+            "Suicidal Thoughts Recieved": yes_no_map[data["Suicidal Thoughts Recieved"][0]],
             "Study Hours": data["Study Hours"][0],
             "Financial Stress": data["Financial Stress"][0],
-            "Family History of Mental Illness":data["Family History of Mental Illness"][0],
-            "Prediction": prediction
+            "Family History of Mental Illness": yes_no_map[data["Family History of Mental Illness"][0]],
+            "Depression": "Yes" if prediction == 1 else "No"
         }
     
     df = pd.DataFrame([row])
 
     if os.path.exists(csv_file):
-        df.to_csv(csv_file, mode = 'a', header = False, index = True)
+        df.to_csv(csv_file, mode = 'a', header = False, index = False)
     else:
-        df.to_csv(csv_file, mode = 'w', header = True, index = True)
+        df.to_csv(csv_file, mode = 'w', header = True, index = False)
         
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -70,18 +95,21 @@ def home():
 
         inp_df = pd.DataFrame(data)
         pred = model.predict(inp_df)[0]
+        prob =model.predict_proba(inp_df)[0][1]
+        percent = round(prob * 100, 2)
 
         save_in_file(data, pred)
         print(pred)
 
-        return redirect(url_for("result", prediction = pred))
+        return redirect(url_for("result", prediction = pred, percentage = percent))
     
     return render_template("index.html")
 
 @app.route("/result")
 def result():
     prediction = request.args.get("prediction")
-    return render_template("result.html", prediction = prediction)
+    percentage = request.args.get("percentage")
+    return render_template("result.html", prediction = prediction, percentage = percentage)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000, debug = False)
