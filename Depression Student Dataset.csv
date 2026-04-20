@@ -502,3 +502,6 @@ Female,23,3.0,5.0,5-6 hours,Healthy,No,1,5,Yes,No
 Male,33,4.0,4.0,More than 8 hours,Healthy,No,8,1,Yes,No
 Male,18,5.0,3.0,More than 8 hours,Unhealthy,No,6,2,Yes,Yes
 Male,24,1.0,5.0,Less than 5 hours,Unhealthy,Yes,8.0,1.0,Yes,No
+Male,22,1.0,5.0,Less than 5 hours,Unhealthy,Yes,8.0,1.0,Yes,No
+Male,19,1.0,5.0,5-6 hours,Unhealthy,Yes,4.0,4.0,Yes,Yes
+Male,20,3.0,2.0,5-6 hours,Moderate,No,6.0,3.0,Yes,Yes

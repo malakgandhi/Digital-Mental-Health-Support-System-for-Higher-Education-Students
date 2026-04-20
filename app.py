@@ -95,13 +95,13 @@ def home():
 
         inp_df = pd.DataFrame(data)
         pred = model.predict(inp_df)[0]
-        prob =model.predict_proba(inp_df)[0][1]
-        percent = round(prob * 100, 2)
+        prob = model.predict_proba(inp_df)[0]
+        percent = round(prob[1] * 100, 2)
+        conf = round(prob[int(pred)] * 100, 2)
 
         save_in_file(data, pred)
-        print(pred)
 
-        return redirect(url_for("result", prediction = pred, percentage = percent))
+        return redirect(url_for("result", prediction = pred, percentage = percent, confidence = conf))
     
     return render_template("index.html")
 
@@ -109,7 +109,8 @@ def home():
 def result():
     prediction = request.args.get("prediction")
     percentage = request.args.get("percentage")
-    return render_template("result.html", prediction = prediction, percentage = percentage)
+    confidence = request.args.get("confidence")
+    return render_template("result.html", prediction = prediction, percentage = percentage, confidence = confidence)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000, debug = False)
